@@ -35,9 +35,9 @@
                             <th class="border-bottom-0">Nama Barang</th>
                             <th class="border-bottom-0">Jenis</th>
                             <th class="border-bottom-0">Satuan</th>
-                            <th class="border-bottom-0">Merk</th>
+                            <th class="border-bottom-0">Lokasi</th>
                             <th class="border-bottom-0">Stok Awal</th>
-                            <th class="border-bottom-0">Harga</th>
+                            <th class="border-bottom-0">jumlah</th>
                             <th class="border-bottom-0" width="1%">Action</th>
                         </thead>
                         <tbody></tbody>
@@ -67,7 +67,7 @@
         $("select[name='satuanU']").val(data.satuan_id);
         $("select[name='merkU']").val(data.merk_id);
         $("input[name='stokU']").val(data.barang_stok);
-        $("input[name='hargaU']").val(data.barang_harga.replace(/_/g, ' '));
+        $("input[name='jumlahU']").val(data.barang_jumlah.replace(/_/g, ' '));
         if(data.barang_gambar != 'image.png'){
             $("#outputImgU").attr("src", "{{asset('storage/barang/')}}"+"/"+data.barang_gambar);    
         }
@@ -156,7 +156,7 @@
                 },
                 {
                     data: 'currency',
-                    name: 'barang_harga'
+                    name: 'barang_jumlah'
                 },
                 {
                     data: 'action',

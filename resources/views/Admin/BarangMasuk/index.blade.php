@@ -3,10 +3,10 @@
 @section('content')
 <!-- PAGE-HEADER -->
 <div class="page-header">
-    <h1 class="page-title">Data Barang Masuk</h1>
+    <h1 class="page-title">Barang Masuk</h1>
     <div>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item text-gray">Laporan</li>
+            <li class="breadcrumb-item text-gray"></li>
             <li class="breadcrumb-item active" aria-current="page">Barang Masuk</li>
         </ol>
     </div>
@@ -34,6 +34,13 @@
                         <div class="form-group">
                             <input type="text" name="tglakhir" class="form-control datepicker-date" placeholder="Tanggal Akhir">
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success-light" onclick="filter()"><i class="fe fe-filter"></i> Filter</button>
+                        <button class="btn btn-secondary-light" onclick="reset()"><i class="fe fe-refresh-ccw"></i> Reset</button>
+                        <button class="btn btn-primary-light" onclick="print()"><i class="fe fe-printer"></i> Print</button>
+                        <button class="btn btn-danger-light" onclick="pdf()"><i class="fa fa-file-pdf-o"></i> PDF</button>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table id="table-1" class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
@@ -144,6 +151,82 @@
         $('input[name="tglawal"]').val('');
         $('input[name="tglakhir"]').val('');
         table.ajax.reload(null, false);
+    }
+
+    function print() {
+        var tglawal = $('input[name="tglawal"]').val();
+        var tglakhir = $('input[name="tglakhir"]').val();
+        if (tglawal != '' && tglakhir != '') {
+            window.open(
+                "{{route('lap-bm.print')}}?tglawal=" + tglawal + "&tglakhir=" + tglakhir,
+                '_blank'
+            );
+        } else {
+            swal({
+                title: "Yakin Print Semua Data?",
+                type: "warning",
+                buttons: true,
+                dangerMode: true,
+                confirmButtonText: "Yakin",
+                cancelButtonText: 'Batal',
+                showCancelButton: true,
+                showConfirmButton: true,
+                closeOnConfirm: false,
+                confirmButtonColor: '#09ad95',
+            }, function(value) {
+                if (value == true) {
+                    window.open(
+                        "{{route('lap-bm.print')}}",
+                        '_blank'
+                    );
+                    swal.close();
+                }
+            });
+
+        }
+
+    }
+
+    function pdf() {
+        var tglawal = $('input[name="tglawal"]').val();
+        var tglakhir = $('input[name="tglakhir"]').val();
+        if (tglawal != '' && tglakhir != '') {
+            window.open(
+                "{{route('lap-bm.pdf')}}?tglawal=" + tglawal + "&tglakhir=" + tglakhir,
+                '_blank'
+            );
+        } else {
+            swal({
+                title: "Yakin export PDF Semua Data?",
+                type: "warning",
+                buttons: true,
+                dangerMode: true,
+                confirmButtonText: "Yakin",
+                cancelButtonText: 'Batal',
+                showCancelButton: true,
+                showConfirmButton: true,
+                closeOnConfirm: false,
+                confirmButtonColor: '#09ad95',
+            }, function(value) {
+                if (value == true) {
+                    window.open(
+                        "{{route('lap-bm.pdf')}}",
+                        '_blank'
+                    );
+                    swal.close();
+                }
+            });
+
+        }
+
+    }
+
+    function validasi(judul, status) {
+        swal({
+            title: judul,
+            type: status,
+            confirmButtonText: "Iya."
+        });
     }
 </script>
 @endsection

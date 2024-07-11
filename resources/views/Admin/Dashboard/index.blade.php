@@ -49,7 +49,7 @@
                 <div class="d-flex">
                     <div class="text-white">
                         <h2 class="mb-0 number-font">{{$merk}}</h2>
-                        <p class="text-white mb-0">Merk Barang</p>
+                        <p class="text-white mb-0">Lokasi Barang</p>
                     </div>
                     <div class="ms-auto"> <i class="fe fe-package text-white fs-40 me-2 mt-2"></i> </div>
                 </div>

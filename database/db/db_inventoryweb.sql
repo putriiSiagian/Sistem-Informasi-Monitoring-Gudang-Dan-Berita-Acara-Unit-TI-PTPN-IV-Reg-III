@@ -576,7 +576,7 @@ insert  into `tbl_menu`(`menu_id`,`menu_judul`,`menu_slug`,`menu_icon`,`menu_red
 (1667444041,'Dashboard','dashboard','home','/dashboard','1','1','2022-11-15 10:51:04','2022-11-15 10:51:04'),
 (1668509889,'Master Barang','master-barang','package','-','2','2','2022-11-15 10:58:09','2022-11-15 11:03:15'),
 (1668510437,'Transaksi','transaksi','repeat','-','4','2','2022-11-15 11:07:17','2022-11-25 15:37:36'),
-(1668510568,'Laporan','laporan','printer','-','5','2','2022-11-15 11:09:28','2022-11-25 15:37:28'),
+(1668510568,'Berita Acara','laporan','printer','-','5','2','2022-11-15 11:09:28','2022-11-25 15:37:28'),
 (1669390641,'Customer','customer','user','/customer','3','1','2022-11-25 15:37:21','2022-11-25 15:37:36');
 
 /*Table structure for table `tbl_merk` */

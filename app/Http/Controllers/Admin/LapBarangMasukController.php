@@ -15,7 +15,7 @@ class LapBarangMasukController extends Controller
     public function index(Request $request)
     {
         $data["title"] = "Lap Barang Masuk";
-        return view('Admin.Laporan.BarangMasuk.index', $data);
+        return view('Admin.Berita Acara.BarangMasuk.index', $data);
     }
 
     public function print(Request $request)
