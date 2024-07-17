@@ -6,12 +6,13 @@
     <h1 class="page-title">Barang Masuk</h1>
     <div>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item text-gray"></li>
+            <li class="breadcrumb-item text-gray">Transaksi</li>
             <li class="breadcrumb-item active" aria-current="page">Barang Masuk</li>
         </ol>
     </div>
 </div>
 <!-- PAGE-HEADER END -->
+
 
 <!-- ROW -->
 <div class="row row-sm">
@@ -19,29 +20,14 @@
         <div class="card">
             <div class="card-header justify-content-between">
                 <h3 class="card-title">Data</h3>
+                @if ($hakTambah > 0)
+                <div>
+                    <a class="modal-effect btn btn-primary-light" onclick="generateID()" data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#modaldemo8">Tambah Data
+                        <i class="fe fe-plus"></i></a>
+                </div>
+                @endif
             </div>
             <div class="card-body">
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <label for="" class="fw-bold">Filter Tanggal</label>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" name="tglawal" class="form-control datepicker-date" placeholder="Tanggal Awal">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" name="tglakhir" class="form-control datepicker-date" placeholder="Tanggal Akhir">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-success-light" onclick="filter()"><i class="fe fe-filter"></i> Filter</button>
-                        <button class="btn btn-secondary-light" onclick="reset()"><i class="fe fe-refresh-ccw"></i> Reset</button>
-                        <button class="btn btn-primary-light" onclick="print()"><i class="fe fe-printer"></i> Print</button>
-                        <button class="btn btn-danger-light" onclick="pdf()"><i class="fa fa-file-pdf-o"></i> PDF</button>
-                    </div>
-                </div>
                 <div class="table-responsive">
                     <table id="table-1" class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                         <thead>
@@ -52,6 +38,7 @@
                             <th class="border-bottom-0">Customer</th>
                             <th class="border-bottom-0">Barang</th>
                             <th class="border-bottom-0">Jumlah Masuk</th>
+                            <th class="border-bottom-0" width="1%">Action</th>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -62,6 +49,45 @@
 </div>
 <!-- END ROW -->
 
+@include('Admin.BarangMasuk.tambah')
+@include('Admin.BarangMasuk.edit')
+@include('Admin.BarangMasuk.hapus')
+@include('Admin.BarangMasuk.barang')
+
+<script>
+    function generateID() {
+        id = new Date().getTime();
+        $("input[name='bmkode']").val("BM-" + id);
+    }
+
+    function update(data) {
+        $("input[name='idbmU']").val(data.bm_id);
+        $("input[name='bmkodeU']").val(data.bm_kode);
+        $("input[name='kdbarangU']").val(data.barang_kode);
+        $("select[name='customerU']").val(data.customer_id);
+        $("input[name='jmlU']").val(data.bm_jumlah);
+
+        getbarangbyidU(data.barang_kode);
+
+        $("input[name='tglmasukU").bootstrapdatepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        }).bootstrapdatepicker("update", data.bm_tanggal);
+    }
+
+    function hapus(data) {
+        $("input[name='idbm']").val(data.bm_id);
+        $("#vbm").html("Kode BM " + "<b>" + data.bm_kode + "</b>");
+    }
+
+    function validasi(judul, status) {
+        swal({
+            title: judul,
+            type: status,
+            confirmButtonText: "Iya."
+        });
+    }
+</script>
 @endsection
 
 @section('scripts')
@@ -72,11 +98,8 @@
         }
     });
 
+    var table;
     $(document).ready(function() {
-        getData();
-    });
-
-    function getData() {
         //datatables
         table = $('#table-1').DataTable({
 
@@ -87,19 +110,15 @@
             "scrollX": true,
             "stateSave": true,
             "lengthMenu": [
-                [5, 10, 25, 50, 100, -1],
-                [5, 10, 25, 50, 100, 'Semua']
+                [5, 10, 25, 50, 100],
+                [5, 10, 25, 50, 100]
             ],
             "pageLength": 10,
 
             lengthChange: true,
 
             "ajax": {
-                "url": "{{ route('lap-bm.getlap-bm') }}",
-                "data": function(d) {
-                    d.tglawal = $('input[name="tglawal"]').val();
-                    d.tglakhir = $('input[name="tglakhir"]').val();
-                }
+                "url": "{{ route('barang-masuk.getbarang-masuk') }}",
             },
 
             "columns": [{
@@ -131,102 +150,15 @@
                     data: 'bm_jumlah',
                     name: 'bm_jumlah',
                 },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
             ],
 
         });
-    }
-
-    function filter() {
-        var tglawal = $('input[name="tglawal"]').val();
-        var tglakhir = $('input[name="tglakhir"]').val();
-        if (tglawal != '' && tglakhir != '') {
-            table.ajax.reload(null, false);
-        } else {
-            validasi("Isi dulu Form Filter Tanggal!", 'warning');
-        }
-
-    }
-
-    function reset() {
-        $('input[name="tglawal"]').val('');
-        $('input[name="tglakhir"]').val('');
-        table.ajax.reload(null, false);
-    }
-
-    function print() {
-        var tglawal = $('input[name="tglawal"]').val();
-        var tglakhir = $('input[name="tglakhir"]').val();
-        if (tglawal != '' && tglakhir != '') {
-            window.open(
-                "{{route('lap-bm.print')}}?tglawal=" + tglawal + "&tglakhir=" + tglakhir,
-                '_blank'
-            );
-        } else {
-            swal({
-                title: "Yakin Print Semua Data?",
-                type: "warning",
-                buttons: true,
-                dangerMode: true,
-                confirmButtonText: "Yakin",
-                cancelButtonText: 'Batal',
-                showCancelButton: true,
-                showConfirmButton: true,
-                closeOnConfirm: false,
-                confirmButtonColor: '#09ad95',
-            }, function(value) {
-                if (value == true) {
-                    window.open(
-                        "{{route('lap-bm.print')}}",
-                        '_blank'
-                    );
-                    swal.close();
-                }
-            });
-
-        }
-
-    }
-
-    function pdf() {
-        var tglawal = $('input[name="tglawal"]').val();
-        var tglakhir = $('input[name="tglakhir"]').val();
-        if (tglawal != '' && tglakhir != '') {
-            window.open(
-                "{{route('lap-bm.pdf')}}?tglawal=" + tglawal + "&tglakhir=" + tglakhir,
-                '_blank'
-            );
-        } else {
-            swal({
-                title: "Yakin export PDF Semua Data?",
-                type: "warning",
-                buttons: true,
-                dangerMode: true,
-                confirmButtonText: "Yakin",
-                cancelButtonText: 'Batal',
-                showCancelButton: true,
-                showConfirmButton: true,
-                closeOnConfirm: false,
-                confirmButtonColor: '#09ad95',
-            }, function(value) {
-                if (value == true) {
-                    window.open(
-                        "{{route('lap-bm.pdf')}}",
-                        '_blank'
-                    );
-                    swal.close();
-                }
-            });
-
-        }
-
-    }
-
-    function validasi(judul, status) {
-        swal({
-            title: judul,
-            type: status,
-            confirmButtonText: "Iya."
-        });
-    }
+    });
 </script>
 @endsection

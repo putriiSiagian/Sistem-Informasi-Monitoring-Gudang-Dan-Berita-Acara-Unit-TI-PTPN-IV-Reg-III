@@ -24,19 +24,29 @@
                         <img src="{{ asset('assets/default/web/default.png') }}" alt="Default" style="width: 100px; margin-right: 20px;">
                         <div>
                             <h2>BERITA ACARA SERAH TERIMA</h2>
-                            <h4>PTPN V</h4>
+                            <h4>PTPN IV REGIONAL III</h4>
                         </div>
                     </div>
                 </div>
                 
-                <p>Pada hari ini, <input type="text" name="hari" class="form-control d-inline" style="width: auto; display: inline;">, tanggal <input type="text" name="tanggal" class="form-control d-inline" style="width: auto; display: inline;">, kami yang bertandatangan di bawah ini:</p>
+                <p>Pada hari ini, 
+                    <select name="hari" class="form-control d-inline" style="width: auto; display: inline;">
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                        <option value="Sabtu">Sabtu</option>
+                        <option value="Minggu">Minggu</option>
+                    </select>, 
+                    tanggal <input type="date" name="tanggal" class="form-control d-inline" style="width: auto; display: inline;">, kami yang bertandatangan di bawah ini:</p>
                 
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <h4>I. Data Pihak Pertama</h4>
                         <div class="form-group">
                             <label for="namaPihakPertama">Nama</label>
-                            <input type="text" id="namaPihakPertama" name="namaPihakPertama" class="form-control">
+                            <input type="text" id="namaPihakPertama" name="namaPihakPertama" class="form-control" oninput="syncNama('namaPihakPertama', 'tandaTanganPihakPertama')">
                         </div>
                         <div class="form-group">
                             <label for="jabatanPihakPertama">Jabatan</label>
@@ -56,7 +66,7 @@
                         <h4>II. Data Pihak Kedua</h4>
                         <div class="form-group">
                             <label for="namaPihakKedua">Nama</label>
-                            <input type="text" id="namaPihakKedua" name="namaPihakKedua" class="form-control">
+                            <input type="text" id="namaPihakKedua" name="namaPihakKedua" class="form-control" oninput="syncNama('namaPihakKedua', 'tandaTanganPihakKedua')">
                         </div>
                         <div class="form-group">
                             <label for="jabatanPihakKedua">Jabatan</label>
@@ -98,9 +108,14 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-secondary mt-2" onclick="addRow()">
-                        <i class="fe fe-plus"></i> Tambah Barang
-                    </button>
+                    <div class="d-flex justify-content-between mt-2">
+                        <button type="button" class="btn btn-secondary" onclick="addRow()">
+                            <i class="fe fe-plus"></i> Tambah Barang
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="deleteLastRow()">
+                            <i class="fe fe-minus"></i> Hapus Barang
+                        </button>
+                    </div>
                 </div>
 
                 <p class="mt-4">Sejak penandatanganan berita acara ini, maka barang tersebut menjadi tanggung jawab PIHAK KEDUA untuk dipergunakan sebagai alat kerja.</p>
@@ -109,12 +124,12 @@
                     <div class="col-md-6 text-center">
                         <p>PIHAK PERTAMA</p>
                         <br><br>
-                        <p>____________________</p>
+                        <p id="tandaTanganPihakPertama"></p>
                     </div>
                     <div class="col-md-6 text-center">
                         <p>PIHAK KEDUA</p>
                         <br><br>
-                        <p>____________________</p>
+                        <p id="tandaTanganPihakKedua"></p>
                     </div>
                     <!-- Footer with Logo -->
                     <div class="text-center mt-5">
@@ -127,7 +142,34 @@
     </div>
 </div>
 
+<script>
+    function syncNama(inputId, outputId) {
+        const input = document.getElementById(inputId);
+        const output = document.getElementById(outputId);
+        output.textContent = input.value || '';
+    }
 
+    function addRow() {
+        const tableBody = document.getElementById('barangTableBody');
+        const newRow = document.createElement('tr');
+        
+        newRow.innerHTML = `
+            <td><input type="text" name="namaBarang[]" class="form-control"></td>
+            <td><input type="text" name="typeBarang[]" class="form-control"></td>
+            <td><input type="number" name="jumlahBarang[]" class="form-control"></td>
+            <td><input type="text" name="snBarang[]" class="form-control"></td>
+            <td><input type="text" name="keteranganBarang[]" class="form-control"></td>
+        `;
 
+        tableBody.appendChild(newRow);
+    }
+
+    function deleteLastRow() {
+        const tableBody = document.getElementById('barangTableBody');
+        if (tableBody.rows.length > 1) {
+            tableBody.deleteRow(tableBody.rows.length - 1);
+        }
+    }
+</script>
 
 @endsection

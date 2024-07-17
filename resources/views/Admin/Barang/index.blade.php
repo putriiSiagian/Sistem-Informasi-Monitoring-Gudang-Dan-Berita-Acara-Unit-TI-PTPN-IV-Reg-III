@@ -36,8 +36,8 @@
                             <th class="border-bottom-0">Jenis</th>
                             <th class="border-bottom-0">Satuan</th>
                             <th class="border-bottom-0">Lokasi</th>
-                            <th class="border-bottom-0">Stok Awal</th>
-                            <th class="border-bottom-0">jumlah</th>
+                            <th class="border-bottom-0">Stok</th>
+                            <th class="border-bottom-0">Jumlah</th>
                             <th class="border-bottom-0" width="1%">Action</th>
                         </thead>
                         <tbody></tbody>
@@ -151,7 +151,7 @@
                     name: 'merk_nama',
                 },
                 {
-                    data: 'barang_stok',
+                    data: 'totalstok',
                     name: 'barang_stok',
                 },
                 {

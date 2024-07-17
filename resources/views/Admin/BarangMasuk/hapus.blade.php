@@ -1,89 +1,56 @@
-@extends('Master.Layouts.app', ['title' => $title])
-
-@section('content')
-<!-- PAGE-HEADER -->
-<div class="page-header">
-    <h1 class="page-title">Hapus Barang Masuk</h1>
-    <div>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item text-gray"></li>
-            <li class="breadcrumb-item active" aria-current="page">Hapus Barang Masuk</li>
-        </ol>
-    </div>
-</div>
-<!-- PAGE-HEADER END -->
-
-<!-- ROW -->
-<div class="row row-sm">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header justify-content-between">
-                <h3 class="card-title">Konfirmasi Hapus Data</h3>
-            </div>
-            <div class="card-body">
-                <form action="{{ route('lap-bm.destroy', $barangMasuk->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p>Apakah Anda yakin ingin menghapus data Barang Masuk berikut?</p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="fw-bold">Tanggal Masuk</label>
-                                <p>{{ $barangMasuk->tgl }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="fw-bold">Kode Barang Masuk</label>
-                                <p>{{ $barangMasuk->kode_barang_masuk }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="fw-bold">Kode Barang</label>
-                                <p>{{ $barangMasuk->kode_barang }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="fw-bold">Transaksi</label>
-                                <p>{{ $barangMasuk->customer }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="fw-bold">Barang</label>
-                                <p>{{ $barangMasuk->barang }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="fw-bold">Jumlah Masuk</label>
-                                <p>{{ $barangMasuk->jumlah_masuk }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-danger"><i class="fe fe-trash"></i> Hapus</button>
-                            <a href="{{ route('lap-bm.index') }}" class="btn btn-secondary"><i class="fe fe-arrow-left"></i> Kembali</a>
-                        </div>
-                    </div>
-                </form>
+<!-- MODAL HAPUS -->
+<div class="modal fade" data-bs-backdrop="static" id="Hmodaldemo8">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-body text-center p-4 pb-5">
+                <button type="reset" aria-label="Close" onclick="resetH()" class="btn-close position-absolute" data-bs-dismiss="modal"><span aria-hidden="true">×</span></button>
+                <br>
+                <i class="icon icon-exclamation fs-70 text-warning lh-1 my-5 d-inline-block"></i>
+                <h3 class="mb-5">Yakin hapus <span id="vbm"></span> ?</h3>
+                <input type="hidden" name="idbm" id="idbm">
+                <button class="btn btn-danger-light pd-x-25 d-none" id="btnLoaderH" type="button" disabled="">
+                    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+                <button onclick="submitFormH()" class="btn btn-danger-light pd-x-25" id="btnSubmit">Iya</button>
+                <button type="reset" data-bs-dismiss="modal" class="btn btn-default pd-x-25">Batal</button>
             </div>
         </div>
     </div>
 </div>
-<!-- END ROW -->
 
-@endsection
-
-@section('scripts')
+@section('formHapusJS')
 <script>
-    $(document).ready(function() {
-        // Script tambahan jika diperlukan
-    });
+    function submitFormH() {
+        setLoadingH(true);
+        const id = $("input[name='idbm']").val();
+        $.ajax({
+            type: 'POST',
+            url: "{{url('admin/barang-masuk/proses_hapus')}}/" + id,
+            enctype: 'multipart/form-data',
+            success: function(data) {
+                swal({
+                    title: "Berhasil dihapus!",
+                    type: "success"
+                });
+                $('#Hmodaldemo8').modal('toggle');
+                table.ajax.reload(null, false);
+                resetH();
+            }
+        });
+    }
+    function resetH() {
+        $("input[name='idbm']").val('');
+        setLoadingH(false);
+    }
+    function setLoadingH(bool) {
+        if (bool == true) {
+            $('#btnLoaderH').removeClass('d-none');
+            $('#btnSubmit').addClass('d-none');
+        } else {
+            $('#btnSubmit').removeClass('d-none');
+            $('#btnLoaderH').addClass('d-none');
+        }
+    }
 </script>
 @endsection
