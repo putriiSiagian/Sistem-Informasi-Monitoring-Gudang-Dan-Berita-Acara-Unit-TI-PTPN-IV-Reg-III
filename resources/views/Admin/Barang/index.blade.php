@@ -67,7 +67,7 @@
         $("select[name='satuanU']").val(data.satuan_id);
         $("select[name='merkU']").val(data.merk_id);
         $("input[name='stokU']").val(data.barang_stok);
-        $("input[name='jumlahU']").val(data.barang_jumlah.replace(/_/g, ' '));
+        $("input[name='hargaU']").val(data.barang_harga.replace(/_/g, ' '));
         if(data.barang_gambar != 'image.png'){
             $("#outputImgU").attr("src", "{{asset('storage/barang/')}}"+"/"+data.barang_gambar);    
         }
@@ -156,7 +156,7 @@
                 },
                 {
                     data: 'currency',
-                    name: 'barang_jumlah'
+                    name: 'barang_harga'
                 },
                 {
                     data: 'action',

@@ -126,12 +126,12 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::get('/admin/lap-barang-masuk/show/', [LapBarangMasukController::class, 'show'])->name('lap-bm.getlap-bm');
     });
 
-    Route::middleware(['checkRoleUser:/lap-barang-keluar,submenu'])->group(function () {
+    Route::middleware(['checkRoleUser:/request-berita-acara,submenu'])->group(function () {
         // Laporan Barang Keluar
-        Route::resource('/admin/lap-barang-keluar', \App\Http\Controllers\Admin\LapBarangKeluarController::class);
-        Route::get('/admin/lapbarangkeluar/print/', [LapBarangKeluarController::class, 'print'])->name('lap-bk.print');
-        Route::get('/admin/lapbarangkeluar/pdf/', [LapBarangKeluarController::class, 'pdf'])->name('lap-bk.pdf');
-        Route::get('/admin/lap-barang-keluar/show/', [LapBarangKeluarController::class, 'show'])->name('lap-bk.getlap-bk');
+        Route::resource('/admin/request-berita-acara', \App\Http\Controllers\Admin\RequestBeritaAcaraController::class);
+        Route::get('/admin/request-berita-acara/print/', [RequestBeritaAcaraController::class, 'print'])->name('lap-bk.print');
+        Route::get('/admin/request-berita-acara/pdf/', [RequestBeritaAcaraController::class, 'pdf'])->name('lap-bk.pdf');
+        Route::get('/admin/request-berita-acara/show/', [RequestBeritaAcaraController::class, 'show'])->name('lap-bk.getlap-bk');
     });
 
     Route::middleware(['checkRoleUser:/lap-stok-barang,submenu'])->group(function () {

@@ -1,7 +1,7 @@
 @extends('Master.Layouts.app', ['title' => $title])
 
 @section('content')
-<<<<<<< HEAD
+
     <!-- PAGE-HEADER -->
     <div class="page-header">
         <h1 class="page-title">Barang Keluar</h1>
@@ -46,60 +46,7 @@
                             <tbody></tbody>
                         </table>
                     </div>
-=======
-<!-- PAGE-HEADER -->
-<div class="page-header">
-    <h1 class="page-title">Data Barang Keluar</h1>
-    <div>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item text-gray">Laporan</li>
-            <li class="breadcrumb-item active" aria-current="page">Barang Keluar</li>
-        </ol>
-    </div>
-</div>
-<!-- PAGE-HEADER END -->
 
-<!-- ROW -->
-<div class="row row-sm">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header justify-content-between">
-                <h3 class="card-title">Data</h3>
-            </div>
-            <div class="card-body">
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <label for="" class="fw-bold">Filter Tanggal</label>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" name="tglawal" class="form-control datepicker-date" placeholder="Tanggal Awal">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <input type="text" name="tglakhir" class="form-control datepicker-date" placeholder="Tanggal Akhir">
-                        </div>
-                </div>
-                <div class="table-responsive">
-                    <table id="table-1" class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
-                        <thead>
-                            <th class="border-bottom-0" width="1%">No</th>
-                            <th class="border-bottom-0">Tanggal Keluar</th>
-                            <th class="border-bottom-0">Kode Barang Keluar</th>
-                            <th class="border-bottom-0">Kode Barang</th>
-                            <th class="border-bottom-0">Customer</th>
-                            <th class="border-bottom-0">Barang</th>
-                            <th class="border-bottom-0">Jumlah Keluar</th>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
->>>>>>> 59e08260a93abb1e79c11568a4c34e1ba86c3ae3
-                </div>
-            </div>
-        </div>
-    </div>
-<<<<<<< HEAD
     <!-- END ROW -->
 
     @include('Admin.BarangKeluar.tambah')
@@ -214,7 +161,6 @@
             });
         });
     </script>
-=======
 </div>
 <!-- END ROW -->
 

@@ -96,7 +96,7 @@
             setLoadingU(false);
             return false;
         } else if (harga == "") {
-            validasi('Harga Barang wajib di isi!', 'warning');
+            validasi('Jumlah Barang wajib di isi!', 'warning');
             $("input[name='hargaU']").addClass('is-invalid');
             setLoadingU(false);
             return false;

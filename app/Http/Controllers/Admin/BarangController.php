@@ -17,24 +17,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BarangController extends Controller
 {
-        public function store(Request $request)
-    {
-        $request->validate([
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $imageName = time().'.'.$request->gambar->extension();  
-        $request->gambar->move(public_path('images'), $imageName);
-
-        $barang = new Barang([
-            // atribut lainnya
-            'gambar' => $imageName,
-        ]);
-        $barang->save();
-
-        return redirect()->route('barang.index')
-                         ->with('success','Barang created successfully.');
-    }
     public function index()
     {
         $data["title"] = "Barang";
@@ -67,10 +49,9 @@ class BarangController extends Controller
                     } else {
                         $img = '<a data-bs-effect="effect-super-scaled" data-bs-toggle="modal" href="#Gmodaldemo8" onclick=gambar(' . json_encode($array) . ')><span class="avatar avatar-lg cover-image" style="background: url(&quot;' . asset('storage/barang/' . $row->barang_gambar) . '&quot;) center center;"></span></a>';
                     }
-                
+
                     return $img;
                 })
-                
                 ->addColumn('jenisbarang', function ($row) {
                     $jenisbarang = $row->jenisbarang_id == '' ? '-' : $row->jenisbarang_nama;
 
