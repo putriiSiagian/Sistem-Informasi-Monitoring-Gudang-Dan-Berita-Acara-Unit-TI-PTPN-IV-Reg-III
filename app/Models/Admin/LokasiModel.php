@@ -5,14 +5,14 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MerkModel extends Model
+class LokasiModel extends Model
 {
     use HasFactory;
-    protected $table = "tbl_merk";
-    protected $primaryKey = 'merk_id';
+    protected $table = "tbl_lokasi";
+    protected $primaryKey = 'lokasi_id';
     protected $fillable = [
-        'merk_nama',
-        'merk_slug',
-        'merk_keterangan'
+        'lokasi_nama',
+        'lokasi_slug',
+        'lokasi_keterangan'
     ]; 
 }

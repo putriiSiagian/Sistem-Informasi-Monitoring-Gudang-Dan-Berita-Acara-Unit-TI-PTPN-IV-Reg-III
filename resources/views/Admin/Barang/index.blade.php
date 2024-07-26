@@ -6,7 +6,7 @@
     <h1 class="page-title">{{$title}}</h1>
     <div>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item text-gray">Master Data</li>
+            <li class="breadcrumb-item text-gray">Request Data Barang</li>
             <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
         </ol>
     </div>
@@ -49,8 +49,8 @@
 </div>
 <!-- END ROW -->
 
-@include('Admin.Barang.tambah', ['jenisbarang' => $jenisbarang, 'satuan' => $satuan, 'merk' => $merk])
-@include('Admin.Barang.edit', ['jenisbarang' => $jenisbarang, 'satuan' => $satuan, 'merk' => $merk])
+@include('Admin.Barang.tambah', ['jenisbarang' => $jenisbarang, 'satuan' => $satuan, 'lokasi' => $lokasi])
+@include('Admin.Barang.edit', ['jenisbarang' => $jenisbarang, 'satuan' => $satuan, 'lokasi' => $lokasi])
 @include('Admin.Barang.hapus')
 @include('Admin.Barang.gambar')
 
@@ -65,9 +65,9 @@
         $("input[name='namaU']").val(data.barang_nama.replace(/_/g, ' '));
         $("select[name='jenisbarangU']").val(data.jenisbarang_id);
         $("select[name='satuanU']").val(data.satuan_id);
-        $("select[name='merkU']").val(data.merk_id);
+        $("select[name='lokasiU']").val(data.lokasi_id);
         $("input[name='stokU']").val(data.barang_stok);
-        $("input[name='hargaU']").val(data.barang_harga.replace(/_/g, ' '));
+        $("input[name='jumlahU']").val(data.barang_jumlah.replace(/_/g, ' '));
         if(data.barang_gambar != 'image.png'){
             $("#outputImgU").attr("src", "{{asset('storage/barang/')}}"+"/"+data.barang_gambar);    
         }
@@ -147,8 +147,8 @@
                     name: 'satuan_nama',
                 },
                 {
-                    data: 'merk',
-                    name: 'merk_nama',
+                    data: 'lokasi',
+                    name: 'lokasi_nama',
                 },
                 {
                     data: 'totalstok',
@@ -156,7 +156,7 @@
                 },
                 {
                     data: 'currency',
-                    name: 'barang_harga'
+                    name: 'barang_jumlah'
                 },
                 {
                     data: 'action',

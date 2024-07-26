@@ -3,11 +3,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1 class="page-title">Merk Barang</h1>
+        <h1 class="page-title">Lokasi Barang</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item text-gray">Master Barang</li>
-                <li class="breadcrumb-item active" aria-current="page">Merk Barang</li>
+                <li class="breadcrumb-item text-gray">Request Data Barang</li>
+                <li class="breadcrumb-item active" aria-current="page">Lokasi Barang</li>
             </ol>
         </div>
     </div>
@@ -34,7 +34,7 @@
                             class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <th class="border-bottom-0" width="1%">No</th>
-                                <th class="border-bottom-0">Merk</th>
+                                <th class="border-bottom-0">Lokasi</th>
                                 <th class="border-bottom-0">Keterangan</th>
                                 <th class="border-bottom-0" width="1%">Action</th>
                             </thead>
@@ -47,20 +47,20 @@
     </div>
     <!-- END ROW -->
 
-    @include('Admin.Merk.tambah')
-    @include('Admin.Merk.edit')
-    @include('Admin.Merk.hapus')
+    @include('Admin.Lokasi.tambah')
+    @include('Admin.Lokasi.edit')
+    @include('Admin.Lokasi.hapus')
 
     <script>
         function update(data) {
-            $("input[name='idmerkU']").val(data.merk_id);
-            $("input[name='merkU']").val(data.merk_nama.replace(/_/g, ' '));
-            $("textarea[name='ketU']").val(data.merk_keterangan.replace(/_/g, ' '));
+            $("input[name='idlokasiU']").val(data.lokasi_id);
+            $("input[name='lokasiU']").val(data.lokasi_nama.replace(/_/g, ' '));
+            $("textarea[name='ketU']").val(data.lokasi_keterangan.replace(/_/g, ' '));
         }
 
         function hapus(data) {
-            $("input[name='idmerk']").val(data.merk_id);
-            $("#vmerk").html("merk " + "<b>" + data.merk_nama.replace(/_/g, ' ') + "</b>");
+            $("input[name='idlokasi']").val(data.lokasi_id);
+            $("#vmerk").html("lokasi " + "<b>" + data.lokasi_nama.replace(/_/g, ' ') + "</b>");
         }
 
         function validasi(judul, status) {
@@ -100,7 +100,7 @@
                 lengthChange: true,
 
                 "ajax": {
-                    "url": "{{ route('merk.getmerk') }}",
+                    "url": "{{ route('lokasi.getlokasi') }}",
                 },
 
                 "columns": [{
@@ -109,12 +109,12 @@
                         searchable: false
                     },
                     {
-                        data: 'merk_nama',
-                        name: 'merk_nama',
+                        data: 'lokasi_nama',
+                        name: 'lokasi_nama',
                     },
                     {
                         data: 'ket',
-                        name: 'merk_keterangan',
+                        name: 'lokasi_keterangan',
                     },
                     {
                         data: 'action',

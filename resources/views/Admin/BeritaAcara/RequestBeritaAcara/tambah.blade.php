@@ -1,8 +1,12 @@
-@extends('Master.Layouts.app', ['title' => 'Berita Acara Serah Terima'])
-
-@section('content')
-<!-- PAGE-HEADER -->
-<div class="page-header">
+<!-- MODAL TAMBAH -->
+<div class="modal fade" data-bs-backdrop="static" id="modaldemo8">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">Tambah </h6><button aria-label="Close" class="btn-close"
+                    data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+        <div class="page-header">
     <h1 class="page-title">Berita Acara Serah Terima</h1>
     <div>
         <ol class="breadcrumb">
@@ -17,22 +21,29 @@
 <div class="row row-sm">
     <div class="col-lg-12">
         <div class="card">
+            <div class="card-header justify-content-between">
+                <h3 class="card-title">Data</h3>
+                <div>
+                    <form action= "{{route('lap-bk.pdf') }}" method="GET">
+                        <button class="btn btn-danger-light" type="submit"><i class="fa fa-file-pdf-o"></i> PDF</button>
+                    </form>                     
+                </div>
+            </div>
             <div class="card-body">
-                <!-- Header with Logo -->
-                <div class="text-center mb-5">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('assets/default/web/default.png') }}" alt="Default" style="width: 70px; margin-right: 20px;">
-                        <div>
-                            <h2>BERITA ACARA SERAH TERIMA</h2>
-                            <h4>PTPN IV REGIONAL III</h4>
+                <div class="document-container">
+                    <!-- Header with Logo -->
+                    <div class="text-center mb-5">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="{{ asset('assets/default/web/default.png') }}" alt="Default" style="width: 50px; margin-right: 20px;">
+                            <div>
+                                <h2>BERITA ACARA SERAH TERIMA</h2>
+                                <h4>PTPN IV REGIONAL III</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <form action="{{ route('lap-bk.print') }}" method="POST" target="_blank">
-                    @csrf
+
                     <p>Pada hari ini, 
-                        <select name="hari" id="hari" class="form-control d-inline-block" style="width: auto;">
+                        <select name="hari" class="form-control d-inline" style="width: auto; display: inline;">
                             <option value="Senin">Senin</option>
                             <option value="Selasa">Selasa</option>
                             <option value="Rabu">Rabu</option>
@@ -41,15 +52,14 @@
                             <option value="Sabtu">Sabtu</option>
                             <option value="Minggu">Minggu</option>
                         </select>, 
-                        tanggal <input type="date" name="tanggal" id="tanggal" class="form-control d-inline-block" style="width: auto;">, kami yang bertandatangan di bawah ini:
-                    </p>
-                    
+                        tanggal <input type="date" name="tanggal" class="form-control d-inline" style="width: auto; display: inline;">, kami yang bertandatangan di bawah ini:</p>
+
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <h4>I. Data Pihak Pertama</h4>
                             <div class="form-group">
                                 <label for="namaPihakPertama">Nama</label>
-                                <input type="text" id="namaPihakPertama" name="namaPihakPertama" class="form-control">
+                                <input type="text" id="namaPihakPertama" name="namaPihakPertama" class="form-control" oninput="syncNama('namaPihakPertama', 'tandaTanganPihakPertama')">
                             </div>
                             <div class="form-group">
                                 <label for="jabatanPihakPertama">Jabatan</label>
@@ -64,11 +74,12 @@
                                 <input type="text" id="unitPihakPertama" name="unitPihakPertama" class="form-control">
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <h4>II. Data Pihak Kedua</h4>
                             <div class="form-group">
                                 <label for="namaPihakKedua">Nama</label>
-                                <input type="text" id="namaPihakKedua" name="namaPihakKedua" class="form-control">
+                                <input type="text" id="namaPihakKedua" name="namaPihakKedua" class="form-control" oninput="syncNama('namaPihakKedua', 'tandaTanganPihakKedua')">
                             </div>
                             <div class="form-group">
                                 <label for="jabatanPihakKedua">Jabatan</label>
@@ -111,16 +122,17 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between mt-2">
-                            <button type="button" class="btn btn-secondary" id="addRowBtn">
+                            <button type="button" class="btn btn-secondary" onclick="addRow()">
                                 <i class="fe fe-plus"></i> Tambah Barang
                             </button>
-                            <button type="button" class="btn btn-danger" id="deleteLastRowBtn">
+                            <button type="button" class="btn btn-danger" onclick="deleteLastRow()">
                                 <i class="fe fe-minus"></i> Hapus Barang
                             </button>
                         </div>
                     </div>
 
                     <p class="mt-4">Sejak penandatanganan berita acara ini, maka barang tersebut menjadi tanggung jawab PIHAK KEDUA untuk dipergunakan sebagai alat kerja.</p>
+
                     <div class="row mt-5">
                         <div class="col-md-6 text-center">
                             <p>PIHAK PERTAMA</p>
@@ -132,54 +144,82 @@
                             <br><br>
                             <p id="tandaTanganPihakKedua"></p>
                         </div>
+                        <!-- Footer with Logo -->
+                        <div class="text-center mt-5">
+                            <img src="{{ asset('assets/default/web/akhlak.png') }}" alt="akhlak" style="width: 150px; margin-right: 20px;">
+                        </div>
                     </div>
-                                    
-                    <!-- Footer with Logo -->
-                    <div class="text-center mt-5">
-                        <img src="{{ asset('assets/default/web/akhlak.png') }}" alt="akhlak" style="width: 100px;">
-                    </div>
-
-                    <div class="d-flex justify-content-end mt-4">
-                        <button type="submit" class="btn btn-primary"><i class="fe fe-printer"></i> Print Berita Acara</button>
-                    </div>
-                </form>
+                </div>
+                
             </div>
         </div>
     </div>
 </div>
-<!-- ROW END -->
+</div>
 
-@endsection
 
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('addRowBtn').addEventListener('click', function() {
-            addRow();
-        });
+@section('formTambahJS')
+    <script>
+        function checkForm() {
+            const satuan = $("input[name='satuan']").val();
+            setLoading(true);
+            resetValid();
 
-        document.getElementById('deleteLastRowBtn').addEventListener('click', function() {
-            deleteLastRow();
-        });
-    });
+            if (satuan == "") {
+                validasi('Nama Satuan wajib di isi!', 'warning');
+                $("input[name='satuan']").addClass('is-invalid');
+                setLoading(false);
+                return false;
+            } else {
+                submitForm();
+            }
 
-    function addRow() {
-        var table = document.getElementById('barangTableBody');
-        var row = table.insertRow(-1);
-        row.innerHTML = `
-            <td><input type="text" name="namaBarang[]" class="form-control"></td>
-            <td><input type="text" name="typeBarang[]" class="form-control"></td>
-            <td><input type="number" name="jumlahBarang[]" class="form-control"></td>
-            <td><input type="text" name="snBarang[]" class="form-control"></td>
-            <td><input type="text" name="keteranganBarang[]" class="form-control"></td>
-        `;
-    }
-
-    function deleteLastRow() {
-        var table = document.getElementById('barangTableBody');
-        if (table.rows.length > 1) {
-            table.deleteRow(-1);
         }
-    }
-</script>
-@endpush
+
+        function submitForm() {
+            const satuan = $("input[name='satuan']").val();
+            const ket = $("textarea[name='ket']").val();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('satuan.store') }}",
+                enctype: 'multipart/form-data',
+                data: {
+                    satuan: satuan,
+                    ket: ket
+                },
+                success: function(data) {
+                    $('#modaldemo8').modal('toggle');
+                    swal({
+                        title: "Berhasil ditambah!",
+                        type: "success"
+                    });
+                    table.ajax.reload(null, false);
+                    reset();
+
+                }
+            });
+        }
+
+        function resetValid() {
+            $("input[name='satuan']").removeClass('is-invalid');
+        };
+
+        function reset() {
+            resetValid();
+            $("input[name='satuan']").val('');
+            $("textarea[name='ket']").val('');
+            setLoading(false);
+        }
+
+        function setLoading(bool) {
+            if (bool == true) {
+                $('#btnLoader').removeClass('d-none');
+                $('#btnSimpan').addClass('d-none');
+            } else {
+                $('#btnSimpan').removeClass('d-none');
+                $('#btnLoader').addClass('d-none');
+            }
+        }
+    </script>
+@endsection

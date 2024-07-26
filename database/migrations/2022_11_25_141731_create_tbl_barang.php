@@ -17,11 +17,11 @@ return new class extends Migration
             $table->increments('barang_id');
             $table->string('jenisbarang_id')->nullable();
             $table->string('satuan_id')->nullable();
-            $table->string('merk_id')->nullable();
+            $table->string('lokasi_id')->nullable();
             $table->string('barang_kode');
             $table->string('barang_nama');
             $table->string('barang_slug');
-            $table->string('barang_harga');
+            $table->string('barang_jumlah');
             $table->string('barang_stok');
             $table->string('barang_gambar');
             $table->timestamps();

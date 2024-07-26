@@ -222,8 +222,8 @@
                     name: 'barang_kode',
                 },
                 {
-                    data: 'customer',
-                    name: 'customer_nama',
+                    data: 'unit',
+                    name: 'unit_nama',
                 },
                 {
                     data: 'barang',

@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_customer', function (Blueprint $table) {
-            $table->increments('customer_id');
-            $table->string('customer_nama');
-            $table->string('customer_slug');
-            $table->text('customer_alamat')->nullable();
-            $table->string('customer_notelp')->nullable();
+        Schema::create('tbl_unit', function (Blueprint $table) {
+            $table->increments('unit_id');
+            $table->string('unit_nama');
+            $table->string('unit_slug');
+            $table->text('unit_alamat')->nullable();
+            $table->string('unit_notelp')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_customer');
+        Schema::dropIfExists('tbl_unit');
     }
 };

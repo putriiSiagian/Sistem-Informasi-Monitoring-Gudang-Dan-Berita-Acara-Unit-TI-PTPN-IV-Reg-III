@@ -3,13 +3,13 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Ubah Customer Barang</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h6 class="modal-title">Ubah Unit Ti</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="idcustomerU">
+                <input type="hidden" name="idunitU">
                 <div class="form-group">
-                    <label for="customerU" class="form-label">Customer Barang <span class="text-danger">*</span></label>
-                    <input type="text" name="customerU" class="form-control" placeholder="">
+                    <label for="unitU" class="form-label">Unit Ti Barang <span class="text-danger">*</span></label>
+                    <input type="text" name="unitU" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="notelpU" class="form-label">No Telepon</label>
@@ -35,13 +35,13 @@
 @section('formEditJS')
 <script>
     function checkFormU() {
-        const customer = $("input[name='customerU']").val();
+        const unit = $("input[name='unitU']").val();
         setLoadingU(true);
         resetValidU();
 
-        if (customer == "") {
-            validasi('Nama Customer wajib di isi!', 'warning');
-            $("input[name='customerU']").addClass('is-invalid');
+        if (unit == "") {
+            validasi('Nama Unit Ti wajib di isi!', 'warning');
+            $("input[name='unitU']").addClass('is-invalid');
             setLoadingU(false);
             return false;
         } else {
@@ -50,17 +50,17 @@
     }
 
     function submitFormU() {
-        const id = $("input[name='idcustomerU']").val();
-        const customer = $("input[name='customerU']").val();
+        const id = $("input[name='idunitU']").val();
+        const unit = $("input[name='unitU']").val();
         const notelp = $("input[name='notelpU']").val();
         const alamat = $("textarea[name='alamatU']").val();
 
         $.ajax({
             type: 'POST',
-            url: "{{url('admin/customer/proses_ubah')}}/" + id,
+            url: "{{url('admin/unit/proses_ubah')}}/" + id,
             enctype: 'multipart/form-data',
             data: {
-                customer: customer,
+                unit: unit,
                 notelp: notelp,
                 alamat: alamat
             },
@@ -77,15 +77,15 @@
     }
 
     function resetValidU() {
-        $("input[name='customerU']").removeClass('is-invalid');
+        $("input[name='unitU']").removeClass('is-invalid');
         $("input[name='notelpU']").removeClass('is-invalid');
         $("textarea[name='alamatU']").removeClass('is-invalid');
     };
 
     function resetU() {
         resetValidU();
-        $("input[name='idcustomerU']").val('');
-        $("input[name='customerU']").val('');
+        $("input[name='idunitU']").val('');
+        $("input[name='unitU']").val('');
         $("input[name='notelpU']").val('');
         $("textarea[name='alamatU']").val('');
         setLoadingU(false);

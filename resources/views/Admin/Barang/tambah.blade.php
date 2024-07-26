@@ -35,17 +35,17 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="merk" class="form-label">Lokasi Barang</label>
-                            <select name="merk" class="form-control">
+                            <label for="lokasi" class="form-label">Lokasi Barang</label>
+                            <select name="lokasi" class="form-control">
                                 <option value="">-- Pilih --</option>
-                                @foreach ($merk as $m)
-                                <option value="{{$m->merk_id}}">{{$m->merk_nama}}</option>
+                                @foreach ($lokasi as $m)
+                                <option value="{{$m->lokasi_id}}">{{$m->lokasi_nama}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="harga" class="form-label">Jumlah <span class="text-danger">*</span></label>
-                            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="harga" class="form-control">
+                            <label for="jumlah" class="form-label">Jumlah <span class="text-danger">*</span></label>
+                            <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="jumlah" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-5">
@@ -76,7 +76,7 @@
     function checkForm() {
         const kode = $("input[name='kode']").val();
         const nama = $("input[name='nama']").val();
-        const harga = $("input[name='harga']").val();
+        const jumlah = $("input[name='jumlah']").val();
         setLoading(true);
         resetValid();
         if (kode == "") {
@@ -89,9 +89,9 @@
             $("input[name='nama']").addClass('is-invalid');
             setLoading(false);
             return false;
-        } else if (harga == "") {
+        } else if (jumlah == "") {
             validasi('Harga Barang wajib di isi!', 'warning');
-            $("input[name='harga']").addClass('is-invalid');
+            $("input[name='jumlah']").addClass('is-invalid');
             setLoading(false);
             return false;
         } else {
@@ -103,8 +103,8 @@
         const nama = $("input[name='nama']").val();
         const jenisbarang = $("select[name='jenisbarang']").val();
         const satuan = $("select[name='satuan']").val();
-        const merk = $("select[name='merk']").val();
-        const harga = $("input[name='harga']").val();
+        const lokasi = $("select[name='lokasi']").val();
+        const jumlah = $("input[name='jumlah']").val();
         const foto = $('#GetFile')[0].files;
         var fd = new FormData();
         // Append data 
@@ -113,8 +113,8 @@
         fd.append('nama', nama);
         fd.append('jenisbarang', jenisbarang);
         fd.append('satuan', satuan);
-        fd.append('merk', merk);
-        fd.append('harga', harga);
+        fd.append('lokasi', lokasi);
+        fd.append('jumlah', jumlah);
         $.ajax({
             type: 'POST',
             url: "{{route('barang.store')}}",
@@ -138,8 +138,8 @@
         $("input[name='nama']").removeClass('is-invalid');
         $("select[name='jenisbarang']").removeClass('is-invalid');
         $("select[name='satuan']").removeClass('is-invalid');
-        $("select[name='merk']").removeClass('is-invalid');
-        $("input[name='harga']").removeClass('is-invalid');
+        $("select[name='lokasi']").removeClass('is-invalid');
+        $("input[name='jumlah']").removeClass('is-invalid');
     };
     function reset() {
         resetValid();
@@ -147,8 +147,8 @@
         $("input[name='nama']").val('');
         $("select[name='jenisbarang']").val('');
         $("select[name='satuan']").val('');
-        $("select[name='merk']").val('');
-        $("input[name='harga']").val('');
+        $("select[name='lokasi']").val('');
+        $("input[name='jumlah']").val('');
         $("#outputImg").attr("src", "{{url('/assets/default/barang/image.png')}}");
         $("#GetFile").val('');
         setLoading(false);

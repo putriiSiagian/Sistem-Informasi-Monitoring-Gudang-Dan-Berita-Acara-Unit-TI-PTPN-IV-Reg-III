@@ -240,9 +240,12 @@ body {
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
-    color: #282f53;
+    color: #000000; 
     text-align: left;
-    background-color: #f0f0f5;
+    background-image: url('/assets/default/web/ptpn.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 .number-font {

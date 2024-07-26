@@ -17,11 +17,11 @@
                             <input type="text" name="tglmasuk" class="form-control datepicker-date" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label for="customer" class="form-label">Pilih Customer <span class="text-danger">*</span></label>
-                            <select name="customer" id="customer" class="form-control">
-                                <option value="">-- Pilih Customer --</option>
-                                @foreach ($customer as $c)
-                                <option value="{{ $c->customer_id }}">{{ $c->customer_nama }}</option>
+                            <label for="unit" class="form-label">Pilih Unit TI <span class="text-danger">*</span></label>
+                            <select name="unit" id="unit" class="form-control">
+                                <option value="">-- Pilih Unit TI --</option>
+                                @foreach ($unit as $c)
+                                <option value="{{ $c->unit_id }}">{{ $c->unit_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -130,7 +130,7 @@
     function checkForm() {
         const tglmasuk = $("input[name='tglmasuk']").val();
         const status = $("#status").val();
-        const customer = $("select[name='customer']").val();
+        const unit = $("select[name='unit']").val();
         const jml = $("input[name='jml']").val();
         setLoading(true);
         resetValid();
@@ -140,9 +140,9 @@
             $("input[name='tglmasuk']").addClass('is-invalid');
             setLoading(false);
             return false;
-        } else if (customer == "") {
-            validasi('Customer wajib di pilih!', 'warning');
-            $("select[name='customer']").addClass('is-invalid');
+        } else if (unit == "") {
+            validasi('Unit Ti wajib di pilih!', 'warning');
+            $("select[name='unit']").addClass('is-invalid');
             setLoading(false);
             return false;
         } else if (status == "false") {
@@ -165,7 +165,7 @@
         const bmkode = $("input[name='bmkode']").val();
         const tglmasuk = $("input[name='tglmasuk']").val();
         const kdbarang = $("input[name='kdbarang']").val();
-        const customer = $("select[name='customer']").val();
+        const unit = $("select[name='unit']").val();
         const jml = $("input[name='jml']").val();
 
         $.ajax({
@@ -176,7 +176,7 @@
                 bmkode: bmkode,
                 tglmasuk: tglmasuk,
                 barang: kdbarang,
-                customer: customer,
+                unit: unit,
                 jml: jml
             },
             success: function(data) {
@@ -195,7 +195,7 @@
     function resetValid() {
         $("input[name='tglmasuk']").removeClass('is-invalid');
         $("input[name='kdbarang']").removeClass('is-invalid');
-        $("select[name='customer']").removeClass('is-invalid');
+        $("select[name='unit']").removeClass('is-invalid');
         $("input[name='jml']").removeClass('is-invalid');
     };
 
@@ -204,7 +204,7 @@
         $("input[name='bmkode']").val('');
         $("input[name='tglmasuk']").val('');
         $("input[name='kdbarang']").val('');
-        $("select[name='customer']").val('');
+        $("select[name='unit']").val('');
         $("input[name='jml']").val('0');
         $("#nmbarang").val('');
         $("#satuan").val('');

@@ -12,11 +12,15 @@ $(function(e) {
     });
 
     // DATATABLE 2
-    $('#datatable2').DataTable({
-        bLengthChange: false,
-        searching: false,
-        responsive: true
-    });
+    $('#table-2').DataTable({
+        "ajax": {
+            "url": "/path/to/your/data",
+            "type": "GET",
+            "error": function (jqXHR, textStatus, errorThrown) {
+                console.error("Ajax Error: ", textStatus, errorThrown);
+            }
+        }
+    });    
     
     // SELECT2
     $('.dataTables_length select').select2({

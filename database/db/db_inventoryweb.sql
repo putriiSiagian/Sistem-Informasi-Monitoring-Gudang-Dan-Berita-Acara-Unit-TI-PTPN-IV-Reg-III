@@ -64,10 +64,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2022_11_08_024215_create_tbl_web', 1),
 (9, '2022_11_15_131148_create_tbl_jenisbarang', 2),
 (10, '2022_11_15_173700_create_tbl_satuan', 3),
-(11, '2022_11_15_180434_create_tbl_merk', 4),
+(11, '2022_11_15_180434_create_tbl_lokasi', 4),
 (12, '2022_11_16_120018_create_tbl_appreance', 5),
 (13, '2022_11_25_141731_create_tbl_barang', 6),
-(14, '2022_11_26_011349_create_tbl_customer', 7),
+(14, '2022_11_26_011349_create_tbl_unit', 7),
 (16, '2022_11_28_151108_create_tbl_barangmasuk', 8),
 (17, '2022_11_30_115904_create_tbl_barangkeluar', 9);
 
@@ -462,7 +462,7 @@ CREATE TABLE `tbl_barang` (
   `barang_id` int(255) NOT NULL,
   `jenisbarang_id` varchar(255) DEFAULT NULL,
   `satuan_id` varchar(255) DEFAULT NULL,
-  `merk_id` varchar(255) DEFAULT NULL,
+  `lokasi_id` varchar(255) DEFAULT NULL,
   `barang_kode` varchar(255) NOT NULL,
   `barang_nama` varchar(255) NOT NULL,
   `barang_slug` varchar(255) DEFAULT NULL,
@@ -477,7 +477,7 @@ CREATE TABLE `tbl_barang` (
 -- Dumping data for table `tbl_barang`
 --
 
-INSERT INTO `tbl_barang` (`barang_id`, `jenisbarang_id`, `satuan_id`, `merk_id`, `barang_kode`, `barang_nama`, `barang_slug`, `barang_harga`, `barang_stok`, `barang_gambar`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_barang` (`barang_id`, `jenisbarang_id`, `satuan_id`, `lokasi_id`, `barang_kode`, `barang_nama`, `barang_slug`, `barang_harga`, `barang_stok`, `barang_gambar`, `created_at`, `updated_at`) VALUES
 (6, '12', '5', '7', 'BRG-1669390220236', 'PC LG', 'pc-lg', '2', '0', 'p4wMnZixE8veKzH6NfgjiEFFr5M42IPnPNXm3Ei9.jpg', '2022-11-25 08:30:50', '2024-07-17 18:59:46'),
 (7, '12', '5', '2', 'BRG-1721217257018', 'Printer', 'printer', '33', '0', 'hE5SiWE4hFGk8wzjv1aEVOxxDf0LUpgf75KkLYTA.jpg', '2024-07-17 04:54:40', '2024-07-17 04:54:40');
 
@@ -516,7 +516,7 @@ CREATE TABLE `tbl_barangmasuk` (
   `bm_id` int(10) UNSIGNED NOT NULL,
   `bm_kode` varchar(255) NOT NULL,
   `barang_kode` varchar(255) NOT NULL,
-  `customer_id` varchar(255) NOT NULL,
+  `unit_id` varchar(255) NOT NULL,
   `bm_tanggal` varchar(255) NOT NULL,
   `bm_jumlah` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -527,7 +527,7 @@ CREATE TABLE `tbl_barangmasuk` (
 -- Dumping data for table `tbl_barangmasuk`
 --
 
-INSERT INTO `tbl_barangmasuk` (`bm_id`, `bm_kode`, `barang_kode`, `customer_id`, `bm_tanggal`, `bm_jumlah`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_barangmasuk` (`bm_id`, `bm_kode`, `barang_kode`, `unit_id`, `bm_tanggal`, `bm_jumlah`, `created_at`, `updated_at`) VALUES
 (1, 'BM-1669730554623', 'BRG-1669390220236', '2', '2024-06-26', '50', '2024-06-18 02:39:02', '2024-06-18 02:39:02'),
 (2, 'BM-1669731639801', 'BRG-1669390175622', '2', '2024-06-20', '10', '2024-06-18 02:39:02', '2024-06-18 02:39:02'),
 (3, 'BM-1721217289601', 'BRG-1721217257018', '2', '2024-07-11', '46', '2024-07-17 04:55:18', '2024-07-17 04:55:18'),
@@ -536,24 +536,24 @@ INSERT INTO `tbl_barangmasuk` (`bm_id`, `bm_kode`, `barang_kode`, `customer_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_customer`
+-- Table structure for table `tbl_unit`
 --
 
-CREATE TABLE `tbl_customer` (
-  `customer_id` int(10) UNSIGNED NOT NULL,
-  `customer_nama` varchar(255) NOT NULL,
-  `customer_slug` varchar(255) NOT NULL,
-  `customer_alamat` text DEFAULT NULL,
-  `customer_notelp` varchar(255) DEFAULT NULL,
+CREATE TABLE `tbl_unit` (
+  `unit_id` int(10) UNSIGNED NOT NULL,
+  `unit_nama` varchar(255) NOT NULL,
+  `unit_slug` varchar(255) NOT NULL,
+  `unit_alamat` text DEFAULT NULL,
+  `unit_notelp` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_customer`
+-- Dumping data for table `tbl_unit`
 --
 
-INSERT INTO `tbl_customer` (`customer_id`, `customer_nama`, `customer_slug`, `customer_alamat`, `customer_notelp`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_unit` (`unit_id`, `unit_nama`, `unit_slug`, `unit_alamat`, `unit_notelp`, `created_at`, `updated_at`) VALUES
 (2, 'Satria', 'satria', 'Riau', '0812345678', '2024-06-18 08:39:02', '2024-06-18 08:39:02');
 
 -- --------------------------------------------------------
@@ -604,31 +604,31 @@ CREATE TABLE `tbl_menu` (
 
 INSERT INTO `tbl_menu` (`menu_id`, `menu_judul`, `menu_slug`, `menu_icon`, `menu_redirect`, `menu_sort`, `menu_type`, `created_at`, `updated_at`) VALUES
 (1667444041, 'Dashboard', 'dashboard', 'home', '/dashboard', '1', '1', '2024-06-17 03:51:04', '2024-06-17 03:51:04'),
-(1668509889, 'Master Barang', 'master-barang', 'package', '-', '2', '2', '2024-06-17 03:58:09', '2024-06-17 03:58:09'),
+(1668509889, 'Request Barang', 'request-barang', 'package', '-', '2', '2', '2024-06-17 03:58:09', '2024-06-17 03:58:09'),
 (1668510437, 'Transaksi', 'transaksi', 'repeat', '-', '3', '2', '2024-06-17 04:07:17', '2024-06-17 04:07:17'),
 (1668510568, 'Berita Acara', 'berita acara', 'printer', '-', '5', '2', '2024-06-17 06:09:28', '2024-06-17 06:09:28'),
-(1669390641, 'Customer', 'customer', 'user', '/customer', '4', '1', '2024-06-17 08:37:21', '2024-06-17 08:37:21');
+(1669390641, 'Unit', 'unit', 'user', '/unit', '4', '1', '2024-06-17 08:37:21', '2024-06-17 08:37:21');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_merk`
+-- Table structure for table `tbl_lokasi`
 --
 
-CREATE TABLE `tbl_merk` (
-  `merk_id` int(10) UNSIGNED NOT NULL,
-  `merk_nama` varchar(255) NOT NULL,
-  `merk_slug` varchar(255) NOT NULL,
-  `merk_keterangan` varchar(255) DEFAULT NULL,
+CREATE TABLE `tbl_lokasi` (
+  `lokasi_id` int(10) UNSIGNED NOT NULL,
+  `lokasi_nama` varchar(255) NOT NULL,
+  `lokasi_slug` varchar(255) NOT NULL,
+  `lokasi_keterangan` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `tbl_merk`
+-- Dumping data for table `tbl_lokasi`
 --
 
-INSERT INTO `tbl_merk` (`merk_id`, `merk_nama`, `merk_slug`, `merk_keterangan`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_lokasi` (`lokasi_id`, `lokasi_nama`, `lokasi_slug`, `lokasi_keterangan`, `created_at`, `updated_at`) VALUES
 (1, 'Gudang Rapat', 'gudang rapat', NULL, '2024-06-18 02:39:02', '2024-06-18 02:39:02'),
 (2, 'Gudang Melati', 'gudang melati', NULL, '2024-06-18 02:39:02', '2024-06-18 02:39:02'),
 (7, 'Gudang Venue', 'gudang venue', NULL, '2024-06-18 02:39:02', '2024-06-18 02:39:02');
@@ -706,7 +706,7 @@ INSERT INTO `tbl_submenu` (`submenu_id`, `menu_id`, `submenu_judul`, `submenu_sl
 (10, '1668510437', 'Barang Keluar', 'barang-keluar', '/barang-keluar', '2', '2024-06-13 04:08:19', '2024-06-13 04:08:19'),
 (17, '1668509889', 'Jenis', 'jenis', '/jenisbarang', '1', '2024-06-13 05:06:48', '2024-06-13 05:06:48'),
 (18, '1668509889', 'Satuan', 'satuan', '/satuan', '2', '2024-06-14 05:06:48', '2024-06-14 05:06:48'),
-(19, '1668509889', 'Lokasi', 'merk', '/merk', '3', '2024-06-14 05:06:48', '2024-06-14 05:06:48'),
+(19, '1668509889', 'Lokasi', 'lokasi', '/lokasi', '3', '2024-06-14 05:06:48', '2024-06-14 05:06:48'),
 (20, '1668509889', 'Barang', 'barang', '/barang', '4', '2024-06-14 07:12:03', '2024-06-14 07:12:03'),
 (21, '1668510568', 'Lap Barang Masuk', 'lap-barang-masuk', '/lap-barang-masuk', '1', '2024-06-14 07:12:54', '2024-06-14 07:13:05'),
 (22, '1668510568', 'Request Berita Acara', 'lap-barang-keluar', '/lap-barang-keluar', '2', '2024-06-14 08:12:03', '2024-06-14 08:12:03'),
@@ -816,10 +816,10 @@ ALTER TABLE `tbl_barangmasuk`
   ADD PRIMARY KEY (`bm_id`);
 
 --
--- Indexes for table `tbl_customer`
+-- Indexes for table `tbl_unit`
 --
-ALTER TABLE `tbl_customer`
-  ADD PRIMARY KEY (`customer_id`);
+ALTER TABLE `tbl_unit`
+  ADD PRIMARY KEY (`unit_id`);
 
 --
 -- Indexes for table `tbl_jenisbarang`
@@ -834,10 +834,10 @@ ALTER TABLE `tbl_menu`
   ADD PRIMARY KEY (`menu_id`);
 
 --
--- Indexes for table `tbl_merk`
+-- Indexes for table `tbl_lokasi`
 --
-ALTER TABLE `tbl_merk`
-  ADD PRIMARY KEY (`merk_id`);
+ALTER TABLE `tbl_lokasi`
+  ADD PRIMARY KEY (`lokasi_id`);
 
 --
 -- Indexes for table `tbl_role`
@@ -922,10 +922,10 @@ ALTER TABLE `tbl_barangmasuk`
   MODIFY `bm_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_customer`
+-- AUTO_INCREMENT for table `tbl_unit`
 --
-ALTER TABLE `tbl_customer`
-  MODIFY `customer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `tbl_unit`
+  MODIFY `unit_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_jenisbarang`
@@ -940,10 +940,10 @@ ALTER TABLE `tbl_menu`
   MODIFY `menu_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1669390642;
 
 --
--- AUTO_INCREMENT for table `tbl_merk`
+-- AUTO_INCREMENT for table `tbl_lokasi`
 --
-ALTER TABLE `tbl_merk`
-  MODIFY `merk_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `tbl_lokasi`
+  MODIFY `lokasi_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`

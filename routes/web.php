@@ -3,14 +3,15 @@
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\BarangkeluarController;
 use App\Http\Controllers\Admin\BarangmasukController;
-use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JenisBarangController;
 use App\Http\Controllers\Admin\LapBarangKeluarController;
 use App\Http\Controllers\Admin\LapBarangMasukController;
 use App\Http\Controllers\Admin\LapStokBarangController;
+use App\Http\Controllers\Admin\RequestBeritaAcaraController;
 use App\Http\Controllers\Admin\LoginController;
-use App\Http\Controllers\Admin\MerkController;
+use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\SatuanController;
 use App\Http\Controllers\Master\AksesController;
 use App\Http\Controllers\Master\AppreanceController;
@@ -71,13 +72,13 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::post('/admin/satuan/proses_hapus/{satuan}', [SatuanController::class, 'proses_hapus']);
     });
 
-    Route::middleware(['checkRoleUser:/merk,submenu'])->group(function () {
-        // Merk
-        Route::resource('/admin/merk', \App\Http\Controllers\Admin\MerkController::class);
-        Route::get('/admin/merk/show/', [MerkController::class, 'show'])->name('merk.getmerk');
-        Route::post('/admin/merk/proses_tambah/', [MerkController::class, 'proses_tambah'])->name('merk.store');
-        Route::post('/admin/merk/proses_ubah/{merk}', [MerkController::class, 'proses_ubah']);
-        Route::post('/admin/merk/proses_hapus/{merk}', [MerkController::class, 'proses_hapus']);
+    Route::middleware(['checkRoleUser:/lokasi,submenu'])->group(function () {
+        // Lokasi
+        Route::resource('/admin/lokasi', \App\Http\Controllers\Admin\LokasiController::class);
+        Route::get('/admin/lokasi/show/', [LokasiController::class, 'show'])->name('lokasi.getlokasi');
+        Route::post('/admin/lokasi/proses_tambah/', [LokasiController::class, 'proses_tambah'])->name('lokasi.store');
+        Route::post('/admin/lokasi/proses_ubah/{lokasi}', [LokasiController::class, 'proses_ubah']);
+        Route::post('/admin/lokasi/proses_hapus/{lokasi}', [LokasiController::class, 'proses_hapus']);
     });
 
     Route::middleware(['checkRoleUser:/barang,submenu'])->group(function () {
@@ -89,13 +90,13 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::post('/admin/barang/proses_hapus/{barang}', [BarangController::class, 'proses_hapus']);
     });
 
-    Route::middleware(['checkRoleUser:/customer,menu'])->group(function () {
-        // Customer
-        Route::resource('/admin/customer', \App\Http\Controllers\Admin\CustomerController::class);
-        Route::get('/admin/customer/show/', [CustomerController::class, 'show'])->name('customer.getcustomer');
-        Route::post('/admin/customer/proses_tambah/', [CustomerController::class, 'proses_tambah'])->name('customer.store');
-        Route::post('/admin/customer/proses_ubah/{customer}', [CustomerController::class, 'proses_ubah']);
-        Route::post('/admin/customer/proses_hapus/{customer}', [CustomerController::class, 'proses_hapus']);
+    Route::middleware(['checkRoleUser:/unit,menu'])->group(function () {
+        // Unit TI
+        Route::resource('/admin/unit', \App\Http\Controllers\Admin\UnitController::class);
+        Route::get('/admin/unit/show/', [UnitController::class, 'show'])->name('unit.getunit');
+        Route::post('/admin/unit/proses_tambah/', [UnitController::class, 'proses_tambah'])->name('unit.store');
+        Route::post('/admin/unit/proses_ubah/{unit}', [UnitController::class, 'proses_ubah']);
+        Route::post('/admin/unit/proses_hapus/{unit}', [UnitController::class, 'proses_hapus']);
     });
 
     Route::middleware(['checkRoleUser:/barang-masuk,submenu'])->group(function () {
@@ -107,9 +108,9 @@ Route::group(['middleware' => 'userlogin'], function () {
         Route::post('/admin/barang-masuk/proses_hapus/{barangmasuk}', [BarangmasukController::class, 'proses_hapus']);
         Route::get('/admin/barang/getbarang/{id}', [BarangController::class, 'getbarang']);
         Route::get('/admin/barang/listbarang/{param}', [BarangController::class, 'listbarang']);
-    });
+    }); 
 
-    Route::middleware(['checkRoleUser:/lap-barang-masuk,submenu'])->group(function () {
+    Route::middleware(['checkRoleUser:/barang-keluar,submenu'])->group(function () {
         // Barang Keluar
         Route::resource('/admin/barang-keluar', \App\Http\Controllers\Admin\BarangkeluarController::class);
         Route::get('/admin/barang-keluar/show/', [BarangkeluarController::class, 'show'])->name('barang-keluar.getbarang-keluar');
@@ -127,13 +128,12 @@ Route::group(['middleware' => 'userlogin'], function () {
     });
 
     Route::middleware(['checkRoleUser:/request-berita-acara,submenu'])->group(function () {
-        // Laporan Barang Keluar
+        // Request Berita
         Route::resource('/admin/request-berita-acara', \App\Http\Controllers\Admin\RequestBeritaAcaraController::class);
-        Route::get('/admin/request-berita-acara/print/', [RequestBeritaAcaraController::class, 'print'])->name('lap-bk.print');
-        Route::get('/admin/request-berita-acara/pdf/', [RequestBeritaAcaraController::class, 'pdf'])->name('lap-bk.pdf');
-        Route::get('/admin/request-berita-acara/show/', [RequestBeritaAcaraController::class, 'show'])->name('lap-bk.getlap-bk');
+        Route::post('/admin/request-berita-acara/print', [RequestBeritaAcaraController::class, 'print'])->name('lap-bk.print');
+        Route::post('/admin/request-berita-acara/pdf', [RequestBeritaAcaraController::class, 'pdf'])->name('lap-bk.pdf');
     });
-
+    
     Route::middleware(['checkRoleUser:/lap-stok-barang,submenu'])->group(function () {
         // Laporan Stok Barang
         Route::resource('/admin/lap-stok-barang', \App\Http\Controllers\Admin\LapStokBarangController::class);

@@ -4,84 +4,42 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\RequestBeritaAcaraModel;
-use App\Models\Admin\WebModel;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use PDF;
 
 class RequestBeritaAcaraController extends Controller
 {
     public function index()
     {
-        $data["title"] = "Request Berita Acara";
-        return view('Admin.BeritaAcara.RequestBeritaAcara.index', $data);
+        return view('Admin.BeritaAcara.RequestBeritaAcara.index');
     }
 
     public function print(Request $request)
     {
-        if ($request->tglawal) {
-            $data['data'] = RequestBeritaAcaraModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->whereBetween('bk_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bk_id', 'DESC')->get();
-        } else {
-            $data['data'] = RequestBeritaAcaraModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->orderBy('bk_id', 'DESC')->get();
-        }
-
-        $data["title"] = "Print Barang Masuk";
-        $data['web'] = WebModel::first();
-        $data['tglawal'] = $request->tglawal;
-        $data['tglakhir'] = $request->tglakhir;
+        $data = $this->prepareData($request);
         return view('Admin.BeritaAcara.RequestBeritaAcara.print', $data);
     }
 
     public function pdf(Request $request)
     {
-        if ($request->tglawal) {
-            $data['data'] = RequestBeritaAcaraModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->whereBetween('bk_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bk_id', 'DESC')->get();
-        } else {
-            $data['data'] = RequestBeritaAcaraModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->orderBy('bk_id', 'DESC')->get();
-        }
-
-        $data["title"] = "PDF Barang Masuk";
-        $data['web'] = WebModel::first();
-        $data['tglawal'] = $request->tglawal;
-        $data['tglakhir'] = $request->tglakhir;
-        $pdf = PDF::loadView('Admin.BeritaAcara.RequestBeritaAcara.pdf', $data);
-        
-        if($request->tglawal){
-            return $pdf->download('lap-bk-'.$request->tglawal.'-'.$request->tglakhir.'.pdf');
-        }else{
-            return $pdf->download('lap-bk-semua-tanggal.pdf');
-        }
-        
+        $data = $this->prepareData($request);
+        $pdf = PDF::loadView('Admin.BeritaAcara.RequestBeritaAcara.print', $data);
+        return $pdf->download('Berita_Acara_Serah_Terima.pdf');
     }
 
-    public function show(Request $request)
+    private function prepareData(Request $request)
     {
-        if ($request->ajax()) {
-            if ($request->tglawal == '') {
-                $data = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->orderBy('bk_id', 'DESC')->get();
-            } else {
-                $data = BarangkeluarModel::leftJoin('tbl_barang', 'tbl_barang.barang_kode', '=', 'tbl_barangkeluar.barang_kode')->whereBetween('bk_tanggal', [$request->tglawal, $request->tglakhir])->orderBy('bk_id', 'DESC')->get();
-            }
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('tgl', function ($row) {
-                    $tgl = $row->bk_tanggal == '' ? '-' : Carbon::parse($row->bk_tanggal)->translatedFormat('d F Y');
+        $data = $request->all();
+        $data['barang'] = array_map(function($namaBarang, $typeBarang, $jumlahBarang, $snBarang, $keteranganBarang) {
+            return [
+                'namaBarang' => $namaBarang,
+                'typeBarang' => $typeBarang,
+                'jumlahBarang' => $jumlahBarang,
+                'snBarang' => $snBarang,
+                'keteranganBarang' => $keteranganBarang
+            ];
+        }, $request->namaBarang, $request->typeBarang, $request->jumlahBarang, $request->snBarang, $request->keteranganBarang);
 
-                    return $tgl;
-                })
-                ->addColumn('tujuan', function ($row) {
-                    $tujuan = $row->bk_tujuan == '' ? '-' : $row->bk_tujuan;
-
-                    return $tujuan;
-                })
-                ->addColumn('barang', function ($row) {
-                    $barang = $row->barang_id == '' ? '-' : $row->barang_nama;
-
-                    return $barang;
-                })
-                ->rawColumns(['tgl', 'tujuan', 'barang'])->make(true);
-        }
+        return $data;
     }
-
 }

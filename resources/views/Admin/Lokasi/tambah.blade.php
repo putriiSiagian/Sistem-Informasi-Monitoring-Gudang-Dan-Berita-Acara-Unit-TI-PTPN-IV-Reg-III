@@ -3,21 +3,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Tambah Customer</h6><button aria-label="Close" class="btn-close"
+                <h6 class="modal-title">Tambah Lokasi</h6><button aria-label="Close" class="btn-close"
                     data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="customer" class="form-label">Nama Customer <span class="text-danger">*</span></label>
-                    <input type="text" name="customer" class="form-control" placeholder="">
+                    <label for="lokasi" class="form-label">Nama Lokasi <span class="text-danger">*</span></label>
+                    <input type="text" name="lokasi" class="form-control" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="notelp" class="form-label">No Telepon</label>
-                    <input type="text" name="notelp" class="form-control" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="alamat" class="form-label">Alamat</label>
-                    <textarea name="alamat" class="form-control" rows="4"></textarea>
+                    <label for="ket" class="form-label">Keterangan</label>
+                    <textarea name="ket" class="form-control" rows="4"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -38,13 +34,13 @@
 @section('formTambahJS')
     <script>
         function checkForm() {
-            const customer = $("input[name='customer']").val();
+            const lokasi = $("input[name='lokasi']").val();
             setLoading(true);
             resetValid();
 
-            if (customer == "") {
-                validasi('Nama Customer wajib di isi!', 'warning');
-                $("input[name='customer']").addClass('is-invalid');
+            if (lokasi == "") {
+                validasi('Nama Lokasi wajib di isi!', 'warning');
+                $("input[name='lokasi']").addClass('is-invalid');
                 setLoading(false);
                 return false;
             } else {
@@ -54,18 +50,16 @@
         }
 
         function submitForm() {
-            const customer = $("input[name='customer']").val();
-            const notelp = $("input[name='notelp']").val();
-            const alamat = $("textarea[name='alamat']").val();
+            const lokasi = $("input[name='lokasi']").val();
+            const ket = $("textarea[name='ket']").val();
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('customer.store') }}",
+                url: "{{ route('lokasi.store') }}",
                 enctype: 'multipart/form-data',
                 data: {
-                    customer: customer,
-                    notelp: notelp,
-                    alamat: alamat
+                    lokasi: lokasi,
+                    ket: ket
                 },
                 success: function(data) {
                     $('#modaldemo8').modal('toggle');
@@ -81,13 +75,12 @@
         }
 
         function resetValid() {
-            $("input[name='customer']").removeClass('is-invalid');
+            $("input[name='lokasi']").removeClass('is-invalid');
         };
 
         function reset() {
             resetValid();
-            $("input[name='customer']").val('');
-            $("input[name='notelp']").val('');
+            $("input[name='lokasi']").val('');
             $("textarea[name='ket']").val('');
             setLoading(false);
         }

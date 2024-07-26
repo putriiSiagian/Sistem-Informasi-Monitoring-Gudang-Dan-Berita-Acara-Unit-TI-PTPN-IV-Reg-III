@@ -13,7 +13,7 @@ class BarangmasukModel extends Model
     protected $fillable = [
         'bm_kode',
         'barang_kode',
-        'customer_id',
+        'unit_id',
         'bm_tanggal',
         'bm_jumlah',
     ]; 

@@ -6,7 +6,7 @@
         <h1 class="page-title">Satuan Barang</h1>
         <div>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item text-gray">Master Barang</li>
+                <li class="breadcrumb-item text-gray">Request Data Barang</li>
                 <li class="breadcrumb-item active" aria-current="page">Satuan Barang</li>
             </ol>
         </div>

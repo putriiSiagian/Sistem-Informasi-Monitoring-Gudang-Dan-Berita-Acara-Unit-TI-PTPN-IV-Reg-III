@@ -3,11 +3,11 @@
 @section('content')
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1 class="page-title">Customer</h1>
+        <h1 class="page-title">Data Karyawan Unit Ti</h1>
         <div>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item text-gray">Admin</li>
-                <li class="breadcrumb-item active" aria-current="page">Customer</li>
+                <li class="breadcrumb-item active" aria-current="page">Unit Ti</li>
             </ol>
         </div>
     </div>
@@ -34,7 +34,7 @@
                             class="table table-bordered text-nowrap border-bottom dataTable no-footer dtr-inline collapsed">
                             <thead>
                                 <th class="border-bottom-0" width="1%">No</th>
-                                <th class="border-bottom-0">Customer</th>
+                                <th class="border-bottom-0">Unit Ti</th>
                                 <th class="border-bottom-0">No Telp</th>
                                 <th class="border-bottom-0">Alamat</th>
                                 <th class="border-bottom-0" width="1%">Action</th>
@@ -48,21 +48,21 @@
     </div>
     <!-- END ROW -->
 
-    @include('Admin.Customer.tambah')
-    @include('Admin.Customer.edit')
-    @include('Admin.Customer.hapus')
+    @include('Admin.Unit.tambah')
+    @include('Admin.Unit.edit')
+    @include('Admin.Unit.hapus')
 
     <script>
         function update(data) {
-            $("input[name='idcustomerU']").val(data.customer_id);
-            $("input[name='customerU']").val(data.customer_nama.replace(/_/g, ' '));
-            $("input[name='notelpU']").val(data.customer_notelp);
-            $("textarea[name='alamatU']").val(data.customer_alamat.replace(/_/g, ' '));
+            $("input[name='idunitU']").val(data.unit_id);
+            $("input[name='unitU']").val(data.unit_nama.replace(/_/g, ' '));
+            $("input[name='notelpU']").val(data.unit_notelp);
+            $("textarea[name='alamatU']").val(data.unit_alamat.replace(/_/g, ' '));
         }
 
         function hapus(data) {
-            $("input[name='idcustomer']").val(data.customer_id);
-            $("#vcustomer").html("customer " + "<b>" + data.customer_nama.replace(/_/g, ' ') + "</b>");
+            $("input[name='idunit']").val(data.unit_id);
+            $("#vunit").html("unit " + "<b>" + data.unit_nama.replace(/_/g, ' ') + "</b>");
         }
 
         function validasi(judul, status) {
@@ -102,7 +102,7 @@
                 lengthChange: true,
 
                 "ajax": {
-                    "url": "{{ route('customer.getcustomer') }}",
+                    "url": "{{ route('unit.getunit') }}",
                 },
 
                 "columns": [{
@@ -111,16 +111,16 @@
                         searchable: false
                     },
                     {
-                        data: 'customer_nama',
-                        name: 'customer_nama',
+                        data: 'unit_nama',
+                        name: 'unit_nama',
                     },
                     {
                         data: 'notelp',
-                        name: 'customer_notelp',
+                        name: 'unit_notelp',
                     },
                     {
                         data: 'alamat',
-                        name: 'customer_alamat',
+                        name: 'unit_alamat',
                     },
                     {
                         data: 'action',

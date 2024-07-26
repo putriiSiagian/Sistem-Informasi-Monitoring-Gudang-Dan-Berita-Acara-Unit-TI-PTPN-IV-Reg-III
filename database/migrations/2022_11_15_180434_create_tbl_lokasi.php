@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_merk', function (Blueprint $table) {
-            $table->increments('merk_id');
-            $table->string('merk_nama');
-            $table->string('merk_slug');
-            $table->string('merk_keterangan')->nullable();
+        Schema::create('tbl_lokasi', function (Blueprint $table) {
+            $table->increments('lokasi_id');
+            $table->string('lokasi_nama');
+            $table->string('lokasislug');
+            $table->string('lokasi_keterangan')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_merk');
+        Schema::dropIfExists('tbl_lokasi');
     }
 };
