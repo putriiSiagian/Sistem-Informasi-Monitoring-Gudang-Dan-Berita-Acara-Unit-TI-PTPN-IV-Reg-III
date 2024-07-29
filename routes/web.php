@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\BarangmasukController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JenisBarangController;
-use App\Http\Controllers\Admin\LapBarangKeluarController;
 use App\Http\Controllers\Admin\LapBarangMasukController;
 use App\Http\Controllers\Admin\LapStokBarangController;
 use App\Http\Controllers\Admin\RequestBeritaAcaraController;
