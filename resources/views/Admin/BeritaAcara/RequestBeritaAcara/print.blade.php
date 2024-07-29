@@ -21,51 +21,52 @@
             position: relative;
         }
         .header {
-            margin-bottom: 20px;
-            position: absolute;
-            top: 20mm;
-            left: 20mm;
-            right: 20mm;
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 1px solid black; /* Border line below header */
         }
         .header-content {
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-bottom: 20px;
+            justify-content: center; /* Center the header text */
+            position: relative;
         }
-        .header img {
-            width: 100px;
-            margin-right: 20px;
+        .logo {
+            position: absolute;
+            left: 0; /* Position logo to the left */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
         }
         .header-text {
-            flex-grow: 1;
+            text-align: center;
+            margin-left: 60px; /* Space for the logo */
+            width: calc(100% - 60px); /* Adjust width for header text */
         }
-        .header-text h2, .header-text h4 {
-            margin: 0;
-            font-size: 20px; /* Perbesar font judul */
+        .header-text h2 {
+            margin: 5px 0; /* Adjust spacing between titles */
         }
         .content {
-            margin-top: 140px; /* Adjust margin-top to account for the header */
+            margin-top: 20px; /* Add some space above content */
         }
         .content p {
             margin: 10px 0;
         }
         .data-section {
-            margin-top: 20px;
+            margin-top: 5px; /* Further reduced top margin to bring sections closer */
         }
         .data-section h4 {
-            margin: 0 0 10px;
+            margin-bottom: 2px; /* Reduce space below the heading */
         }
+
         .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
+            margin-top: 0; /* Ensure there's no extra space above the table */
         }
         .data-table td {
-            padding: 10px 0; /* Perbesar padding */
+            padding: 3px 0; /* Reduced padding to bring rows closer */
             vertical-align: top;
-            font-size: 16px; /* Perbesar font tabel */
+            font-size: 16px; /* Adjust as needed */
         }
         .data-table .label {
             width: 150px;
@@ -94,8 +95,8 @@
             text-align: center;
         }
         .signature div p {
-            font-weight: bold; /* Bold untuk nama pihak pertama dan kedua */
-            font-size: 18px; /* Perbesar font nama pihak */
+            font-weight: bold; /* Bold for names */
+            font-size: 18px; /* Increased font size for names */
         }
         table {
             width: 100%;
@@ -111,8 +112,10 @@
         }
         .footer {
             display: flex;
-            justify-content: left; /* Center horizontally */
-            margin-top: 40px; /* Optional, to add spacing above the footer */
+            justify-content: left; /* Align logo to the left */
+            margin-top: 40px; /* Optional spacing above footer */
+            border-top: 1px solid black; /* Border line at the top of footer */
+            padding-top: 10px; /* Padding for spacing */
         }
         .footer img {
             width: 450px; /* Adjust size as needed */
@@ -124,18 +127,18 @@
     <div class="container">
         <div class="header">
             <div class="header-content">
-                <img src="{{ asset('assets/default/web/default.png') }}" alt="Default">
+                <img class="logo" src="{{ asset('assets/default/web/default.png') }}" alt="Default">
                 <div class="header-text">
                     <h2>BERITA ACARA SERAH TERIMA</h2>
-                    <h4>PTPN IV REGIONAL III</h4>
+                    <h2>PTPN IV REGIONAL III</h2>
                 </div>
             </div>
         </div>
 
-        <div class="content">
+<div class="content">
             <p>Pada hari ini {{ $hari }}, tanggal {{ \Carbon\Carbon::parse($tanggal)->format('d-m-Y') }}, kami yang bertandatangan di bawah ini:</p>
 
-<div class="data-section">
+            <div class="data-section">
                 <h4>I. Data Pihak Pertama</h4>
                 <table class="data-table">
                     <tr>
@@ -223,7 +226,7 @@
                     <p>PIHAK PERTAMA</p>
                     <br><br><br>
                     <p>{{ $namaPihakPertama }}</p>
-                </div> 
+                </div>
                 <div>
                     <p>PIHAK KEDUA</p>
                     <br><br><br>
@@ -232,13 +235,13 @@
             </div>
         </div>
 
-        <script>
+<script>
             window.onload = function() {
                 window.print();
             };
         </script>
 
-<div class="footer">
+        <div class="footer">
             <img src="{{ asset('assets/default/web/akhlak.png') }}" alt="akhlak">
         </div>
         
