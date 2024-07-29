@@ -130,8 +130,8 @@ Route::group(['middleware' => 'userlogin'], function () {
     Route::middleware(['checkRoleUser:/request-berita-acara,submenu'])->group(function () {
         // Request Berita
         Route::resource('/admin/request-berita-acara', \App\Http\Controllers\Admin\RequestBeritaAcaraController::class);
-        Route::post('/admin/request-berita-acara/print', [RequestBeritaAcaraController::class, 'print'])->name('lap-bk.print');
-        Route::post('/admin/request-berita-acara/pdf', [RequestBeritaAcaraController::class, 'pdf'])->name('lap-bk.pdf');
+        Route::post('/admin/request-berita-acara/print', [RequestBeritaAcaraController::class, 'print'])->name('req-ba.print');
+        Route::post('/admin/request-berita-acara/pdf', [RequestBeritaAcaraController::class, 'pdf'])->name('req-ba.pdf');
     });
     
     Route::middleware(['checkRoleUser:/lap-stok-barang,submenu'])->group(function () {
