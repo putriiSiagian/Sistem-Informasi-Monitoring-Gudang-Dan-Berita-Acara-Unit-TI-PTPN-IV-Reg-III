@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 
-                <form action="{{ route('lap-bk.print') }}" method="POST" target="_blank">
+                <form action="{{ route('req-ba.print') }}" method="POST" target="_blank">
                     @csrf
                     <p>Pada hari ini, 
                         <select name="hari" id="hari" class="form-control d-inline-block" style="width: auto;">
