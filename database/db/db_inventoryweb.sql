@@ -64,10 +64,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2022_11_08_024215_create_tbl_web', 1),
 (9, '2022_11_15_131148_create_tbl_jenisbarang', 2),
 (10, '2022_11_15_173700_create_tbl_satuan', 3),
-(11, '2022_11_15_180434_create_tbl_merk', 4),
+(11, '2022_11_15_180434_create_tbl_lokasi', 4),
 (12, '2022_11_16_120018_create_tbl_appreance', 5),
 (13, '2022_11_25_141731_create_tbl_barang', 6),
-(14, '2022_11_26_011349_create_tbl_customer', 7),
+(14, '2022_11_26_011349_create_tbl_unit', 7),
 (16, '2022_11_28_151108_create_tbl_barangmasuk', 8),
 (17, '2022_11_30_115904_create_tbl_barangkeluar', 9);
 
