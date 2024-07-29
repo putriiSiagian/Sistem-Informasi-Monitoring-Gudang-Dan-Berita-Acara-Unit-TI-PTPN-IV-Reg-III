@@ -709,7 +709,7 @@ INSERT INTO `tbl_submenu` (`submenu_id`, `menu_id`, `submenu_judul`, `submenu_sl
 (19, '1668509889', 'Lokasi', 'lokasi', '/lokasi', '3', '2024-06-14 05:06:48', '2024-06-14 05:06:48'),
 (20, '1668509889', 'Barang', 'barang', '/barang', '4', '2024-06-14 07:12:03', '2024-06-14 07:12:03'),
 (21, '1668510568', 'Lap Barang Masuk', 'lap-barang-masuk', '/lap-barang-masuk', '1', '2024-06-14 07:12:54', '2024-06-14 07:13:05'),
-(22, '1668510568', 'Request Berita Acara', 'lap-barang-keluar', '/lap-barang-keluar', '2', '2024-06-14 08:12:03', '2024-06-14 08:12:03'),
+(22, '1668510568', 'Request Berita Acara', 'req-berita-acara', '/req-berita-acara', '2', '2024-06-14 08:12:03', '2024-06-14 08:12:03'),
 (23, '1668510568', 'Lap Stok Barang', 'lap-stok-barang', '/lap-stok-barang', '3', '2024-06-14 08:12:03', '2024-06-14 08:12:03');
 
 -- --------------------------------------------------------
